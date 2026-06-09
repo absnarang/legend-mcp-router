@@ -96,6 +96,11 @@ Both must exit 0. Treat a red eval as a blocking failure, not a warning.
   different facet values (`etf` vs `mutual_fund`). A sub-attribute that no tool
   routes on (open- vs closed-ended) is *not* a facet — it absorbs into the
   nearest value (`mutual_fund`) until some tool must discriminate it.
+- **`asset_class` is the instrument's type, not its underlying exposure.** A
+  bond ETF (e.g. AGG) resolves to `asset_class=etf`, not `bond` — classify by
+  what the identifier *is*, not what it holds. Mis-classifying by holdings sends
+  an answerable returns question to `no_match`. This is Stage 1 / entity
+  resolution's job, and a recurring footgun for fund identifiers.
 
 ## What NOT to do
 
@@ -104,6 +109,9 @@ Both must exit 0. Treat a red eval as a blocking failure, not a warning.
 - Do not add an MCP without its eval in the same commit.
 - Do not assume entitlements come from the agent — in production they come from
   caller identity. Treat the `entitlements` arg as trusted-caller-supplied only.
+- Do not hardcode absolute paths. Scripts derive the repo root from `__file__`
+  (`os.path.dirname(os.path.dirname(os.path.abspath(__file__)))`); the original
+  scaffold hardcoded `/home/claude/...` and broke when run off-sandbox.
 - Do not pull pylegend / arrow-serialization concerns into this repo.
 
 ## Session hygiene
