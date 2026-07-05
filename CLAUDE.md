@@ -119,3 +119,9 @@ Both must exit 0. Treat a red eval as a blocking failure, not a warning.
 - Keep this work in its own folder and session, separate from pylegend-sandbox.
 - `save-session-context` / `resume-session` operate per-folder; this folder's
   context is router-only.
+- **Published public repo:** `origin` = https://github.com/absnarang/legend-mcp-router
+  (public). `README.md` and `SPEC.md` are world-readable — never commit secrets,
+  tokens, or internal hostnames. `main` tracks `origin/main`.
+- `.claude/settings.local.json` (local machine-specific permissions) is
+  gitignored and must stay out of the public repo; the shareable
+  `.claude/settings.json` convention remains open.
